@@ -1,5 +1,11 @@
 # druggie
 
+Welcome to the Druggie Github repository!
+
+"Track your intake"
+
+The purpose of this project is support harm reduction for people that are willing taking different substances. The app can be used to prescription medication or for recreative use. 
+
 ## Project setup
 ```
 npm install
