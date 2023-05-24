@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="history">
         <p>history</p>
         <HomeButton />
@@ -16,9 +16,26 @@
 
   }
   </script>
-  
-  <!-- Add "scoped" attribute to limit CSS to this component only -->
-  <style scoped>
+--->
 
-  </style>
+<template>
+  <div>
+    <h2>Log Entry:</h2>
+    <p><strong>Intake Method:</strong> {{ logEntry.intakeMethod }}</p>
+    <p><strong>Substance:</strong> {{ logEntry.substance }}</p>
+    <p><strong>Amount:</strong> {{ logEntry.amount }}</p>
+    <p><strong>Timestamp:</strong> {{ logEntry.timestamp }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    logEntry: {
+      type: Object,
+      required: true
+    }
+  }
+};
+</script>
   
