@@ -121,7 +121,12 @@ h1 {
 .content {
   flex: 1;
 }
-
+.w-full{
+  width: 100%;
+}
+.h-full{
+  height: 100%;
+}
 .footer {
   background-color: black;
   color: white;
@@ -230,6 +235,15 @@ h1 {
 .main-footer{
   text-align: center;
   margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.main-footer .footer-action-link{
+  margin-bottom: 10px;
+  display: inline-block;
+  font-weight: 400;
 }
 .page-subtitle{
   font-size: 28px;

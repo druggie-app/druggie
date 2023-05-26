@@ -106,19 +106,78 @@ export default {
 <style scoped>
 .substance_items{
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
 }
 .substance_item{
-  padding: 0 5px 10px;
+  padding: 0 8px 10px;
+  font-weight: 600;
+  /* width: 50%; */
 }
-.substance_item span{
+.substance_item:nth-child(1){
+  font-size: 125%;
+}
+
+.substance_item:nth-child(3){
+  font-size: 150%;
+}
+.substance_item:nth-child(4){
+  font-size: 170%;
+}
+.substance_item:nth-child(5){
+  font-size: 90%;
+}
+.substance_item:nth-child(6){
+  font-size: 180%;
+}
+.substance_item:nth-child(7){
+  font-size: 200%;
+}
+.substance_item:nth-child(8){
+  font-size: 140%;
+}
+.substance_item:nth-child(10){
+  font-size: 170%;
+}
+.substance_item:nth-child(12){
+  font-size: 240%;
+}
+.substance_item:nth-child(13){
+  font-size: 140%;
+}
+.substance_item:nth-child(15){
+  font-size: 170%;
+}
+.substance_item:nth-child(17){
+  font-size: 240%;
+}
+
+.substance_item:nth-child(18){
+  font-size: 150%;
+}
+.substance_item:nth-child(19){
+  font-size: 170%;
+}
+.substance_item:nth-child(21){
+  font-size: 90%;
+}
+.substance_item:nth-child(22){
+  font-size: 180%;
+}
+.substance_item:nth-child(23){
+  font-size: 200%;
+}
+.substance_item:nth-child(24){
+  font-size: 140%;
+}
+/* .substance_item span{
   background: #FDF3CA;
   border-radius: 10px;
   padding: 6px 15px;
-  display: block;
   cursor: pointer;
   min-width: 100px;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+} */
 </style>

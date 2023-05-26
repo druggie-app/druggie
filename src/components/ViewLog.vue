@@ -14,6 +14,9 @@
         </div>
       </div>
       <div class="main-footer">
+        <div class="w-full">
+          <router-link to="/history"  class="footer-action-link addmore-link">View All</router-link>
+        </div>
         <HomeButton />
       </div>
     </div>

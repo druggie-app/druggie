@@ -61,19 +61,21 @@ export default {
 <style scoped>
 .amount_items{
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
 }
 .amount_item{
-  padding: 0 5px 10px;
+  padding: 0 8px 10px;
+  width: 50%;
 }
 .amount_item span{
   background: #FDF3CA;
   border-radius: 10px;
   padding: 6px 15px;
-  display: block;
   cursor: pointer;
   min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>

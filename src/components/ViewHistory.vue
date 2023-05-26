@@ -9,23 +9,23 @@
               <span @click="seeMoreDetails(value.druggie_timestamp)">{{`${value.druggie_method} - ${value.druggie_substance}`}}</span>
             </div>
           </div>
-          <router-link to="/" class="addmore-link">Add More</router-link>
+          
         </div>
       </div>
       <div class="main-footer">
-        <HomeButton />
+        <router-link to="/"  class="btn-secondary addmore-btn">Add More</router-link>
       </div>
     </div>
   </div>
 </template>
   
   <script>
-import HomeButton from "./HomeButton.vue";
+// import HomeButton from "./HomeButton.vue";
 
 export default {
   name: "ViewHistory",
   components: {
-    HomeButton,
+   // HomeButton,
   },
   data(){
     return{
@@ -71,19 +71,21 @@ export default {
 <style scoped>
 .history_items{
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
 }
 .history_item{
-  padding: 0 5px 10px;
+  padding: 0 8px 10px;
+  width: 50%;
 }
 .history_item span{
   background: #FDF3CA;
   border-radius: 10px;
   padding: 6px 15px;
-  display: block;
   cursor: pointer;
   min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>
