@@ -1,7 +1,16 @@
 <template>
-    <div class="terms">
-        <p>terms</p>
-        <HomeButton />
+    <div class="terms-wrapper">
+      <div class="middle-main-container">
+        <div class="middle-main-content">
+          <div class="small-container text-center">
+            <h2 class="page-subtitle">Terms</h2>
+            <p>Comming Soon...</p>
+          </div>
+        </div>
+        <div class="main-footer">
+          <HomeButton />
+        </div>
+      </div>
     </div>
   </template>
   

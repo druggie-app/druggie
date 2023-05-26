@@ -6,6 +6,7 @@ import TermsCond from './components/TermsCond.vue'
 import ViewHistory from './components/ViewHistory.vue'
 import ViewLog from './components/ViewLog.vue'
 import HomePage from './components/HomePage.vue'
+import ChooseTimestamp from './components/ChooseTimestamp.vue'
 
 
 export default [
@@ -14,15 +15,21 @@ export default [
     component: HomePage
   },
   {
-    path: '/choose-substance/:intake-method',
+    path: '/choose-substance',
     name: 'ChooseSubstance',
     component: ChooseSubstance,
     props: true
   },
   {
-    path: '/choose-amount/:amount',
+    path: '/choose-amount',
     name: 'ChooseAmount',
     component: ChooseAmount, 
+    props: true
+  },
+  {
+    path: '/choose-timestamp',
+    name: 'ChooseTimestamp',
+    component: ChooseTimestamp,
     props: true
   },
   {
@@ -46,9 +53,10 @@ export default [
     component: ViewHistory
   },
   {
-    path: '/log/',
+    path: '/log/:timestamp',
     name: 'ViewLog',
     component: ViewLog,
+    props: true
   }
 ]
 
