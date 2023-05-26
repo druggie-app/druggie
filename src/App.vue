@@ -248,7 +248,7 @@ h1 {
 .page-subtitle{
   font-size: 28px;
   font-weight: 600;
-  margin: 0 0 15px;
+  margin: 0 0 20px;
 }
 .addmore-link{
   font-weight: 600;

@@ -107,9 +107,10 @@ export default {
 .substance_items{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .substance_item{
-  padding: 0 8px 10px;
+  padding: 0 10px 10px;
   font-weight: 600;
   /* width: 50%; */
 }
