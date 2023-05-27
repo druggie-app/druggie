@@ -9,6 +9,11 @@
               <span @click="nextPage(value)">{{value}}</span>
             </div>
           </div>
+          <div class="substance_items" id="substance_options" v-if="substances.length == 0">
+            <div class="substance_item">
+              <span>Substance not found.</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="main-footer">
@@ -36,21 +41,27 @@ export default {
     return {
       isShowOthers: false,
       other: "",
-      substances: [
-        'weed',
-        'lsd',
-        'molly',
-        'K',
-        'speed',
-        'MD',
-        'GHB',
-        'Coke',
-        'Ket',
-        '4-mmc',
-        '3-mmc',
-        'mdma'
-      ]
+      substances: []
+      // substances: [
+      //   'weed',
+      //   'lsd',
+      //   'molly',
+      //   'K',
+      //   'speed',
+      //   'MD',
+      //   'GHB',
+      //   'Coke',
+      //   'Ket',
+      //   '4-mmc',
+      //   '3-mmc',
+      //   'mdma'
+      // ]
     };
+  },
+  mounted(){
+    if(localStorage.getItem('druggie_substance_history')){
+      this.substances = JSON.parse(localStorage.getItem('druggie_substance_history'))
+    }
   },
   // mounted(){
   //   var mainDivSize = ((Math.random()*100) + 50).toFixed();
@@ -97,8 +108,15 @@ export default {
       this.isShowOthers = true
     },
     submitOtherIntake(){
+      let substancesHistory = []
+      if(localStorage.getItem('druggie_substance_history')){
+        substancesHistory = JSON.parse(localStorage.getItem('druggie_substance_history'))
+      }
+      substancesHistory.push(this.other)
+      this.substances = substancesHistory
+      localStorage.setItem('druggie_substance_history', JSON.stringify(substancesHistory))
+      this.other = ""
       this.isShowOthers = false
-      this.nextPage(this.other)
     }
   },
 };

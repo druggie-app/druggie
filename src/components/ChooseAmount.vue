@@ -9,6 +9,11 @@
               <span @click="nextPage(value)">{{value}}</span>
             </div>
           </div>
+          <div class="amount_items" id="amount_options" v-if="amounts.length == 0">
+            <div class="amount_item">
+              <span>Amounts not found.</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="main-footer">
@@ -36,12 +41,18 @@ export default {
     return {
       isShowOthers: false,
       other: "",
-      amounts: [
-        '1 Line',
-        '2 Lines',
-        '1 Dump'
-      ]
+      amounts: []
+      // amounts: [
+      //   '1 Line',
+      //   '2 Lines',
+      //   '1 Dump'
+      // ]
     };
+  },
+  mounted(){
+    if(localStorage.getItem('druggie_amount_history')){
+      this.amounts = JSON.parse(localStorage.getItem('druggie_amount_history'))
+    }
   },
   methods: {
     async nextPage(amount) {
@@ -52,8 +63,15 @@ export default {
       this.isShowOthers = true
     },
     submitOtherIntake(){
+      let amountsHistory = []
+      if(localStorage.getItem('druggie_amount_history')){
+        amountsHistory = JSON.parse(localStorage.getItem('druggie_amount_history'))
+      }
+      amountsHistory.push(this.other)
+      this.amounts = amountsHistory
+      localStorage.setItem('druggie_amount_history', JSON.stringify(amountsHistory))
+      this.other = ""
       this.isShowOthers = false
-      this.nextPage(this.other)
     }
   }
 };
