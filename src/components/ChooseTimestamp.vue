@@ -3,7 +3,12 @@
     <div class="middle-main-container">
       <div class="middle-main-content">
         <div class="small-container text-center">
-          <h2 class="page-subtitle">Time of consumption</h2>
+          <h2 class="page-subtitle">When did you take it?</h2>
+          <!-- <rotating-clock
+            :current-time="currentTime"
+            :start-rotation="90"
+          ></rotating-clock>
+          <button class="btn-primary" @click="nextPage">Save</button> -->
           <div class="consumption_items" id="consumption_options" v-if="consumptions.length > 0">
             <div class="consumption_item" v-for="(value, key) in consumptions" :key="key">
               <span @click="nextPage(value)">{{value}}</span>
@@ -21,6 +26,7 @@ export default {
   data() {
     return {
       consumptions: [
+        'now',
         '07:00AM to 08:00AM',
         '08:00AM to 09:00AM',
         '09:00AM to 10:00AM',
@@ -38,12 +44,15 @@ export default {
       if(localStorage.getItem('druggie_history')){
           druggieHistory = JSON.parse(localStorage.getItem('druggie_history'));
       }
+      const timestamp = new Date().getTime();
+      const druggieConsumptions = (consumption === 'now') ? timestamp.toString() : localStorage.getItem('druggie_consumptions');
+
       await druggieHistory.push({
           'druggie_timestamp': new Date().getTime(),
           'druggie_method': localStorage.getItem('druggie_method'),
           'druggie_substance': localStorage.getItem('druggie_substance'),
           'druggie_amount': localStorage.getItem('druggie_amount'),
-          'druggie_consumptions': localStorage.getItem('druggie_consumptions')
+          'druggie_consumptions': druggieConsumptions
       })
       await localStorage.setItem('druggie_history',  JSON.stringify(druggieHistory));
       await this.$router.push(`/history`)

@@ -4,10 +4,10 @@
       <div class="header-wrapper">
         <div class="small-container">
           <div class="header-content">
-            <span class="mobile header-stopwatch-link"><img class="stopwatch-img" alt="Stopwatch" src="/images/clock-circle.png" width="24"></span>
-            <router-link to="/about" title="About" class="header-about-link">?</router-link>
+            <router-link to="/history" title="Home" class="header-history-link"><img alt="Stopwatch" src="/images/clock-circle.png" width="24"></router-link>
+            <router-link :to="getLinkToAboutPage()" title="About" class="header-about-link">?</router-link>
           </div>
-          <h1 class="page-title">DRUGGIE</h1>
+          <router-link to="/" style="text-decoration: none;" title="Home" ><h1 class="page-title">DRUGGIE</h1></router-link>
         </div>
       </div>
       <router-view></router-view>
@@ -33,6 +33,15 @@
     acceptTerm(){
       this.termAccept = true
       localStorage.setItem('term_accept', true)
+    },
+    getLinkToAboutPage() {
+      if (this.$route.path === '/about') {
+        // If already on the about page, redirect to the previous page
+        return this.$route.query.redirect || '/';
+      } else {
+        // Redirect to the about page
+        return '/about';
+      }
     }
   }
 }
@@ -214,8 +223,8 @@ h1 {
 .small-container{
   max-width: 500px;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -248,7 +257,8 @@ h1 {
 .page-subtitle{
   font-size: 28px;
   font-weight: 600;
-  margin: 0 0 20px;
+  margin-bottom: 30px;
+  margin-top: 20px;
 }
 .addmore-link{
   font-weight: 600;
@@ -288,6 +298,11 @@ h1 {
     justify-content: center;
     padding: 30px 0;
   }
+  .header-home-link{
+    margin-right: auto;
+    padding-top: 2px;
+    width: 24px;
+  }
   
   .header-about-link{
     margin-left: auto;
@@ -319,7 +334,6 @@ h1 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
   }
   .page-title{
     font-size: 36px;

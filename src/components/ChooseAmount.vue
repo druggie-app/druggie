@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="main-footer">
-        <div class="btn-secondary others-btn" @click="otherIntakeMethod">Others</div>
+        <div class="btn-secondary others-btn" @click="otherIntakeMethod">Add more</div>
       </div>
     </div>
     <div class="middle-main-container" v-if="isShowOthers">
@@ -27,7 +27,7 @@
           <div class="input-control">
             <input class="input-field" type="text" v-model="other">
           </div>
-          <button class="btn-secondary submit-btn" @click="submitOtherIntake">Submit</button>
+          <button class="btn-secondary submit-btn" @click="submitOtherIntake">Add</button>
         </div>
       </div>
     </div>

@@ -19,14 +19,14 @@
     </div>
     <div class="mobile mobile-landing-content">
       <div class="text-center middle-main-container" id="homepage" v-if="!isShowOthers">
-        <div class="middle-main-content">
+        <div class="middle-main-content center-items">
           <div class="img-block">
             <img class="nose-img" src="../assets/nose-icon.png" alt="Nose Icon" @click="navigateToIntakeMethod('nose')">
             <img class="mouth-img" alt="Mouth logo" src="../assets/logo.png" @click="navigateToIntakeMethod('mouth')">
           </div>
         </div>
         <div class="main-footer">
-          <div class="btn-secondary others-btn" @click="otherIntakeMethod">Others</div>
+          <div class="btn-secondary others-btn" @click="otherIntakeMethod">Other way</div>
         </div>
       </div>
       <div class="middle-main-container" v-if="isShowOthers">
@@ -87,6 +87,10 @@ export default {
   font-size: 26px;
   line-height: 1.4;
   margin-bottom: 30px;
+}
+
+.center-items {
+  justify-content: center;
 }
 
 @media (min-width: 768px) {

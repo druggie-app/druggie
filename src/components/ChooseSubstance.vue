@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="main-footer">
-        <div class="btn-secondary others-btn" @click="otherIntakeMethod">Others</div>
+        <div class="btn-secondary others-btn" @click="otherIntakeMethod">Add more</div>
       </div>
     </div>
     <div class="middle-main-container" v-if="isShowOthers">
@@ -27,7 +27,7 @@
           <div class="input-control">
             <input class="input-field" type="text" v-model="other">
           </div>
-          <button class="btn-secondary submit-btn" @click="submitOtherIntake">Submit</button>
+          <button class="btn-secondary submit-btn" @click="submitOtherIntake">Add</button>
         </div>
       </div>
     </div>
@@ -143,7 +143,7 @@ export default {
   font-size: 170%;
 }
 .substance_item:nth-child(5){
-  font-size: 90%;
+  font-size: 160%;
 }
 .substance_item:nth-child(6){
   font-size: 180%;
@@ -177,7 +177,7 @@ export default {
   font-size: 170%;
 }
 .substance_item:nth-child(21){
-  font-size: 90%;
+  font-size: 160%;
 }
 .substance_item:nth-child(22){
   font-size: 180%;
@@ -188,15 +188,4 @@ export default {
 .substance_item:nth-child(24){
   font-size: 140%;
 }
-/* .substance_item span{
-  background: #FDF3CA;
-  border-radius: 10px;
-  padding: 6px 15px;
-  cursor: pointer;
-  min-width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-} */
 </style>
