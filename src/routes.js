@@ -53,7 +53,7 @@ export default [
     component: ViewHistory
   },
   {
-    path: '/log/:timestamp',
+    path: '/log/:substance',
     name: 'ViewLog',
     component: ViewLog,
     props: true
