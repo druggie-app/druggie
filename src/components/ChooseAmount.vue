@@ -11,7 +11,7 @@
           </div>
           <div class="amount_items" id="amount_options" v-if="amounts.length == 0">
             <div class="amount_item">
-              <span>Amounts not found.</span>
+              <span>No amounts entered yet.</span>
             </div>
           </div>
         </div>

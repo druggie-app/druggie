@@ -4,60 +4,55 @@
       <div class="middle-main-content">
         <div class="small-container text-center">
           <h2 class="page-subtitle">When did you take it?</h2>
-          <!-- <rotating-clock
-            :current-time="currentTime"
-            :start-rotation="90"
-          ></rotating-clock>
-          <button class="btn-primary" @click="nextPage">Save</button> -->
-          <div class="consumption_items" id="consumption_options" v-if="consumptions.length > 0">
-            <div class="consumption_item" v-for="(value, key) in consumptions" :key="key">
-              <span @click="nextPage(value)">{{value}}</span>
+          <div class="clock-centered">
+            <RotatingClock  @timestamp-selected="handleTimestampSelected"/>
+            <div class="middle-bellow-content">
+              Selected Time: {{ selectedTimestamp }}
             </div>
           </div>
         </div>
+      </div>
+      <div class="main-footer">
+        <button class="btn-secondary submit-btn" @click="nextPage(selectedTimestamp)">Save</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import RotatingClock from './RotatingClock.vue';
+
 export default {
-  name: 'ChooseTimestamp',
-  data() {
-    return {
-      consumptions: [
-        'now',
-        '07:00AM to 08:00AM',
-        '08:00AM to 09:00AM',
-        '09:00AM to 10:00AM',
-        '10:00AM to 11:00AM',
-        '11:00AM to 12:00PM',
-        '12:00PM to 01:00PM'
-      ]
-    };
-  },
-  methods: {
-    async nextPage(consumption) {
-      await localStorage.setItem('druggie_consumptions', consumption)
-
-      var druggieHistory = []
-      if(localStorage.getItem('druggie_history')){
-          druggieHistory = JSON.parse(localStorage.getItem('druggie_history'));
-      }
-      const timestamp = new Date().getTime();
-      const druggieConsumptions = (consumption === 'now') ? timestamp.toString() : localStorage.getItem('druggie_consumptions');
-
-      await druggieHistory.push({
-          'druggie_timestamp': new Date().getTime(),
-          'druggie_method': localStorage.getItem('druggie_method'),
-          'druggie_substance': localStorage.getItem('druggie_substance'),
-          'druggie_amount': localStorage.getItem('druggie_amount'),
-          'druggie_consumptions': druggieConsumptions
-      })
-      await localStorage.setItem('druggie_history',  JSON.stringify(druggieHistory));
-      await this.$router.push(`/history`)
+    name: "ChooseTimestamp",
+    components: { RotatingClock },
+    data() {
+      return {
+        selectedTimestamp: ''
+      };
+    },
+    methods: {
+      handleTimestampSelected(timestamp) {
+      this.selectedTimestamp = timestamp;
+    },
+        async nextPage(consumption) {
+            await localStorage.setItem("druggie_consumptions", consumption);
+            var druggieHistory = [];
+            if (localStorage.getItem("druggie_history")) {
+                druggieHistory = JSON.parse(localStorage.getItem("druggie_history"));
+            }
+            const timestamp = new Date().getTime();
+            const druggieConsumptions = (consumption === "now") ? timestamp.toString() : localStorage.getItem("druggie_consumptions");
+            await druggieHistory.push({
+                "druggie_timestamp": new Date().getTime(),
+                "druggie_method": localStorage.getItem("druggie_method"),
+                "druggie_substance": localStorage.getItem("druggie_substance"),
+                "druggie_amount": localStorage.getItem("druggie_amount"),
+                "druggie_consumptions": druggieConsumptions
+            });
+            await localStorage.setItem("druggie_history", JSON.stringify(druggieHistory));
+            await this.$router.push(`/history`);
+        },
     }
-  }
 };
 </script>
 <style scoped>
@@ -79,5 +74,13 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+.middle-bellow-content {
+  margin: 50px;
+}
+
+.clock-centered {
+  margin-top: 150px;
 }
 </style>

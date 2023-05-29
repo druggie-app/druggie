@@ -11,7 +11,7 @@
           </div>
           <div class="substance_items" id="substance_options" v-if="substances.length == 0">
             <div class="substance_item">
-              <span>Substance not found.</span>
+              <span>No substances here yet.</span>
             </div>
           </div>
         </div>
