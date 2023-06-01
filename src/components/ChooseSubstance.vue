@@ -42,20 +42,6 @@ export default {
       isShowOthers: false,
       other: "",
       substances: []
-      // substances: [
-      //   'weed',
-      //   'lsd',
-      //   'molly',
-      //   'K',
-      //   'speed',
-      //   'MD',
-      //   'GHB',
-      //   'Coke',
-      //   'Ket',
-      //   '4-mmc',
-      //   '3-mmc',
-      //   'mdma'
-      // ]
     };
   },
   mounted(){
@@ -63,42 +49,6 @@ export default {
       this.substances = JSON.parse(localStorage.getItem('druggie_substance_history'))
     }
   },
-  // mounted(){
-  //   var mainDivSize = ((Math.random()*100) + 50).toFixed();
-  //   let mainDev = document.getElementById('substance_options')
-  //   var color = '#'+ Math.round(0xffffff * Math.random()).toString(16);
-  //   mainDev.style.color = color
-  //   mainDev.style.width = mainDivSize+'px'
-  //   mainDev.style.height = mainDivSize+'px'
-    
-  //   console.log('divsize', mainDivSize)
-  //   if(this.substances.length > 0){
-  //     this.substances.forEach((value)=>{
-
-  //       var newDiv = document.createElement("div");
-
-  //       // and give it some content
-  //       newDiv.innerHTML = '<div >'
-  //       // const newContent = document.createTextNode(value);
-
-  //       // add the text node to the newly created div
-  //       newDiv.appendChild(newContent);
-
-  //       // make position sensitive to size and document's width
-  //       var posx = (Math.random() * mainDivSize).toFixed();
-  //       var posy = (Math.random() * mainDivSize).toFixed();
-
-  //       console.log('posx', posx)
-  //       console.log('posy', posy)
-
-  //       newDiv.style.position = 'absolute'
-  //       newDiv.style.left = posx+'px',
-  //       newDiv.style.top = posy+'px',
-
-  //       mainDev.appendChild(newDiv)
-  //     })
-  //   }
-  // },
   methods: {
     async nextPage(substance) {
       await localStorage.setItem('druggie_substance', substance)
