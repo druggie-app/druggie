@@ -10,7 +10,7 @@
                 <h3 class="substance-title">{{ substance }}</h3>
                 <div>
                   <div>
-                    <span @click="seeMoreDetails(latestLog.druggie_timestamp)">{{ getTimePassed(latestLog.druggie_timestamp) }}</span>
+                    <span @click="seeMoreDetails(latestLog.druggie_substance)">{{ latestLog.timePassed }}</span>
                   </div>
                 </div>
               </div>
@@ -32,7 +32,6 @@ export default {
     return {
       logs: [],
       latestLogsBySubstance: {},
-      currentTime: new Date(),
       timer: null,
     };
   },
@@ -48,8 +47,8 @@ export default {
     this.stopTimer();
   },
   methods: {
-    seeMoreDetails(timestamp) {
-      this.$router.push(`/log/${timestamp}`);
+    seeMoreDetails(substance) {
+      this.$router.push(`/log/${substance}`);
     },
     groupLogsBySubstance() {
       this.latestLogsBySubstance = {};
@@ -59,30 +58,51 @@ export default {
           this.latestLogsBySubstance[substance] = log;
         } else {
           const currentLatestLog = this.latestLogsBySubstance[substance];
-          if (log.druggie_timestamp > currentLatestLog.druggie_timestamp) {
+          if (log.druggie_consumptions > currentLatestLog.druggie_consumptions) {
             this.latestLogsBySubstance[substance] = log;
           }
         }
       });
     },
     startTimer() {
+      this.updateTimePassed();
       this.timer = setInterval(() => {
-        this.currentTime = new Date();
+        this.updateTimePassed();
       }, 1000);
     },
     stopTimer() {
       clearInterval(this.timer);
     },
-    getTimePassed(timestamp) {
-      const initialTime = new Date(timestamp);
+    updateTimePassed() {
+      const currentTime = new Date();
 
-      const timeDiff = this.currentTime - initialTime;
+      Object.values(this.latestLogsBySubstance).forEach((latestLog) => {
+        latestLog.timePassed = this.getTimePassed(latestLog.druggie_consumptions, currentTime);
+      });
+    },
+    getTimePassed(consumptions, currentTime) {
+      if (!consumptions) {
+        return '';
+      }
 
-      const secondsPassed = Math.floor(timeDiff / 1000);
-      const minutesPassed = Math.floor(secondsPassed / 60);
-      const hoursPassed = Math.floor(minutesPassed / 60);
+      const [time, date] = consumptions.split(' ');
+      const [hours, minutes] = time.split(':');
+      const [day, month, year] = date.split('.');
 
-      return `${hoursPassed % 24}:${minutesPassed % 60}:${secondsPassed % 60}`;
+      const initialTime = new Date(
+        parseInt(year, 10) + 2000,
+        parseInt(month, 10) - 1,
+        parseInt(day, 10),
+        parseInt(hours, 10),
+        parseInt(minutes, 10)
+      );
+
+      const timeDiffInSeconds = Math.floor((currentTime - initialTime) / 1000);
+      const hoursPassed = Math.floor(timeDiffInSeconds / 3600);
+      const minutesPassed = Math.floor((timeDiffInSeconds % 3600) / 60);
+      const secondsPassed = timeDiffInSeconds % 60;
+
+      return `${hoursPassed.toString().padStart(2, '0')}:${minutesPassed.toString().padStart(2, '0')}:${secondsPassed.toString().padStart(2, '0')}`;
     },
   },
 };

@@ -1,49 +1,57 @@
 <template>
-  <div class="rotating-clock">
+  <div class="rotating-clock"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"
+  >
     <div class="scroll-options">
-      <div class="scroll-option" @wheel="handleScroll($event, 'minute', -1)">
+      <div class="scroll-option" @click="handleClick('minute', -1)">
         {{ getScrollOption('minute', -1) }}
       </div>
     </div>
-    <div class="time-picker">
-      <div class="picker-hour" @wheel="handleScroll($event, 'hour')">
-        {{ selectedHour }}
+    <div v-if="selectedHour !== null && selectedMinute !== null" class="time-picker">
+      <div class="picker-hour" @click="handleClick('hour')">
+        {{ selectedHour.toString().padStart(2, '0') }}
       </div>
       <span>:</span>
-      <div class="picker-minute" @wheel="handleScroll($event, 'minute')">
-        {{ selectedMinute }}
+      <div class="picker-minute" @click="handleClick('minute')">
+        {{ selectedMinute.toString().padStart(2, '0') }}
       </div>
     </div>
     <div class="scroll-options">
-      <div class="scroll-option" @wheel="handleScroll($event, 'minute', 1)">
+      <div class="scroll-option" @click="handleClick('minute', 1)">
         {{ getScrollOption('minute', 1) }}
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
 export default {
   data() {
     return {
-      selectedHour: new Date().getHours(),
-      selectedMinute: new Date().getMinutes(),
+      selectedHour: null,
+      selectedMinute: null,
+      touchStartPosition: null,
     };
   },
+  mounted() {
+    const now = new Date();
+    this.selectedHour = now.getHours();
+    this.selectedMinute = now.getMinutes();
+  },
   methods: {
-    handleScroll(event, type, deltaMultiplier = 0) {
-      event.preventDefault();
-      const delta = Math.sign(event.deltaY) * (deltaMultiplier === 0 ? 1 : deltaMultiplier);
-
+    handleClick(type, deltaMultiplier = 0) {
       if (type === 'hour') {
-        this.selectedHour += delta;
+        this.selectedHour += deltaMultiplier;
         if (this.selectedHour < 0) {
           this.selectedHour = 23;
         } else if (this.selectedHour > 23) {
           this.selectedHour = 0;
         }
       } else if (type === 'minute') {
-        this.selectedMinute += delta;
+        this.selectedMinute += deltaMultiplier;
         if (this.selectedMinute < 0) {
           this.selectedMinute = 59;
         } else if (this.selectedMinute > 59) {
@@ -52,7 +60,10 @@ export default {
       }
     },
     getScrollOption(type, deltaMultiplier) {
-      const now = new Date();
+      if (this.selectedHour === null || this.selectedMinute === null) {
+        return ''; // or return a placeholder value
+      }
+
       let scrollHour = this.selectedHour;
       let scrollMinute = this.selectedMinute;
 
@@ -72,15 +83,31 @@ export default {
         }
       }
 
-      let scrollDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), scrollHour, scrollMinute);
-      if (scrollDate > now) {
-        scrollDate.setDate(now.getDate() - 1);
-      }
-
-      const hours = scrollDate.getHours().toString().padStart(2, '0');
-      const minutes = scrollDate.getMinutes().toString().padStart(2, '0');
+      const hours = scrollHour.toString().padStart(2, '0');
+      const minutes = scrollMinute.toString().padStart(2, '0');
 
       return `${hours}:${minutes}`;
+    },
+    handleTouchStart(event) {
+      this.touchStartPosition = event.changedTouches[0].clientY;
+    },
+    handleTouchMove(event) {
+      event.preventDefault();
+      const touchPosition = event.changedTouches[0].clientY;
+      const delta = touchPosition - this.touchStartPosition;
+
+      if (Math.abs(delta) >= 10) {
+        const deltaMultiplier = Math.sign(delta);
+        if (delta > 0) {
+          this.handleClick('hour', deltaMultiplier);
+        } else {
+          this.handleClick('minute', deltaMultiplier);
+        }
+        this.touchStartPosition = touchPosition;
+      }
+    },
+    handleTouchEnd() {
+      this.emitTimestamp();
     },
     getFormattedTimestamp() {
       const now = new Date();
@@ -106,11 +133,10 @@ export default {
     selectedHour() {
       this.emitTimestamp();
     },
-
     selectedMinute() {
       this.emitTimestamp();
-    }
-  }
+    },
+  },
 };
 </script>
 
